@@ -32,6 +32,7 @@ def run():
     durations = [42, 42, 42, 42, 42, 42, 42, 42]
     traffic_mode = [0, 0, 0, 0, 0, 0, 0, 0]
     source_density = [0, 0, 0, 0, 0, 0, 0, 0]
+    target_mSpeed = [0, 0, 0, 0, 0, 0, 0, 0]
 
 
     major_phase = True
@@ -42,9 +43,17 @@ def run():
 
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
+        
+        for i in range(8):
+            if traci.lane.getLastStepVehicleNumber(lane_names[i]) == 0 and traffic_mode[i] == 1:
+                source_density[i] -= 1
+            else:
+                source_density[i] = traci.lane.getLastStepVehicleNumber(lane_names[i])
+
+            target_mSpeed[i] = traci.lane.getLastStepMeanSpeed(lane_names[i])
 
         if major_phase:
-            if durations[1] == 0 and traffic_mode[1] == 1:
+            if (durations[1] == 0 and traffic_mode[1] == 1) or source_density[1] < -5:
                 traffic_mode[1] = 0
                 traci.trafficlight.setLinkState("node4", 1, "r")
                 durations[1] = 42
@@ -56,7 +65,7 @@ def run():
             elif durations[1] > 0 and traffic_mode[1] == 1:
                 durations[1] -= 1
 
-            if durations[5] == 0 and traffic_mode[5] == 1:
+            if (durations[5] == 0 and traffic_mode[5] == 1) or source_density[5] < -5:
                 traffic_mode[5] = 0
                 traci.trafficlight.setLinkState("node4", 5, "r")
                 durations[5] = 42
@@ -68,7 +77,7 @@ def run():
             elif durations[5] > 0 and traffic_mode[5] == 1:
                 durations[5] -= 1
 
-            if durations[0] == 0 and traffic_mode[0] == 1:
+            if (durations[0] == 0 and traffic_mode[0] == 1) or source_density[0] < -5:
                 traffic_mode[0] = -1
                 traci.trafficlight.setLinkState("node4", 0, "r")
                 durations[0] = 42
@@ -76,7 +85,7 @@ def run():
             elif durations[0] > 0 and traffic_mode[0] == 1:
                 durations[0] -= 1
 
-            if durations[4] == 0 and traffic_mode[4] == 1:
+            if (durations[4] == 0 and traffic_mode[4] == 1) or source_density[4] < -5:
                 traffic_mode[4] = -1
                 traci.trafficlight.setLinkState("node4", 4, "r")
                 durations[4] = 42
@@ -98,7 +107,8 @@ def run():
                 durations[7] = 42
 
         else:
-            if durations[3] == 0 and traffic_mode[3] == 1:
+            print("minor: " , source_density)
+            if (durations[3] == 0 and traffic_mode[3] == 1) or source_density[3] < -5:
                 traffic_mode[3] = 0
                 traci.trafficlight.setLinkState("node4", 3, "r")
                 durations[3] = 42
@@ -110,18 +120,21 @@ def run():
             elif durations[3] > 0 and traffic_mode[3] == 1:
                 durations[3] -= 1
 
-            if durations[7] == 0 and traffic_mode[7] == 1:
+            if (durations[7] == 0 and traffic_mode[7] == 1) or source_density[7] < -5:
                 traffic_mode[7] = 0
                 traci.trafficlight.setLinkState("node4", 7, "r")
                 durations[7] = 42
                 # move to next ring
+                print("here")
                 traffic_mode[2] = 1
                 traci.trafficlight.setLinkState("node4", 2, "G")
+                durations[2] = 42
 
             elif durations[7] > 0 and traffic_mode[7] == 1:
                 durations[7] -= 1
 
-            if durations[2] == 0 and traffic_mode[2] == 1:
+            if (durations[2] == 0 and traffic_mode[2] == 1) or source_density[2] < -5:
+                print("cus")
                 traffic_mode[2] = -1 
                 traci.trafficlight.setLinkState("node4", 2, "r")
                 durations[2] = 42
@@ -129,7 +142,7 @@ def run():
             elif durations[2] > 0 and traffic_mode[2] == 1:
                 durations[2] -= 1
 
-            if durations[6] == 0 and traffic_mode[6] == 1:
+            if (durations[6] == 0 and traffic_mode[6] == 1) or source_density[6] < -5:
                 traffic_mode[6] = -1
                 traci.trafficlight.setLinkState("node4", 6, "r")
                 durations[6] = 42
@@ -137,7 +150,7 @@ def run():
             elif durations[6] > 0 and traffic_mode[6] == 1:
                 durations[6] -= 1
 
-            if traffic_mode[2] == -1 and traffic_mode[6] == -1:
+            if (traffic_mode[2] == -1 and traffic_mode[6] == -1) or source_density[2] < -5:
                 major_phase = True
                 # set all minor phase stuff back to 0
                 traffic_mode[2] = 0
