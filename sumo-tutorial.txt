@@ -1,0 +1,5 @@
+* Run this before randomTrips.py
+export SUMO_HOME="/usr/local/Cellar/sumo/1.5.0/share/sumo"
+
+* To generate network
+netconvert --node-files NODE_FILE.nod.xml --edge-files EDGE_FILE.edg.xml -t TYPE_FILE.type.xml -o OUT_FILE.net.xml

@@ -1,0 +1,10 @@
+<edges>
+    <edge id="n0ton4" from="node0" to="node4" type="2L16" />
+    <edge id="n1ton4" from="node1" to="node4" type="2L16" />
+    <edge id="n2ton4" from="node2" to="node4" type="2L16" />
+    <edge id="n3ton4" from="node3" to="node4" type="2L16" />
+    <edge id="n4ton0" from="node4" to="node0" type="2L16" />
+    <edge id="n4ton1" from="node4" to="node1" type="2L16" />
+    <edge id="n4ton2" from="node4" to="node2" type="2L16" />
+    <edge id="n4ton3" from="node4" to="node3" type="2L16" />
+</edges>

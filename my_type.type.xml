@@ -1,0 +1,3 @@
+<types>
+    <type id="2L16" priority="2" numLanes="2" speed="16" disallow="motorcycle bicycle pedestrian" />
+</types>

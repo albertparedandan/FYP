@@ -1,0 +1,19 @@
+<additionals>
+    <inductionLoop id="myLoop0" lane="n0ton4_0" pos="35" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop1" lane="n0ton4_1" pos="35" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop2" lane="n1ton4_0" pos="35" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop3" lane="n1ton4_1" pos="35" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop4" lane="n2ton4_0" pos="35" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop5" lane="n2ton4_1" pos="35" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop6" lane="n3ton4_0" pos="35" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop7" lane="n3ton4_1" pos="35" freq="42" file="out.xml" />
+
+    <inductionLoop id="myLoop8" lane="n4ton0_0" pos="3" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop9" lane="n4ton0_1" pos="3" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop10" lane="n4ton1_0" pos="3" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop11" lane="n4ton1_1" pos="3" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop12" lane="n4ton2_0" pos="3" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop13" lane="n4ton2_1" pos="3" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop14" lane="n4ton3_0" pos="3" freq="42" file="out.xml" />
+    <inductionLoop id="myLoop15" lane="n4ton3_1" pos="3" freq="42" file="out.xml" />
+</additionals>
