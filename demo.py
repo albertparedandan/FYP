@@ -15,8 +15,6 @@ else:
 from sumolib import checkBinary  # Checks for the binary in environ vars
 import traci
 
-log = open("log.txt", "w")
-
 def get_options():
     opt_parser = optparse.OptionParser()
     opt_parser.add_option("--nogui", action="store_true",
