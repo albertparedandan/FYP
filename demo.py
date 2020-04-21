@@ -57,7 +57,7 @@ def run():
         
         vehs = traci.inductionloop.getLastStepVehicleIDs(in_lane_det[7])
         for veh in vehs:
-            print(traci.vehicle.getSpeed(veh))
+            # print(traci.vehicle.getSpeed(veh))
             traci.vehicle.setSpeed(veh, 0.05)
 
         for i in range(8):
@@ -75,9 +75,18 @@ def run():
                 else:
                     target_mSpeed[(i + 5) % 8] = -1
 
+            else:
+                if traffic_mode[i] == 1:
+                    if traci.lane.getLastStepVehicleNumber(in_lane_names[(i + 1) % 8]) > 0:
+                        target_mSpeed[(i + 1) % 8] = traci.lane.getLastStepMeanSpeed(in_lane_names[(i + 1) % 8])
+                    elif traci.lane.getLastStepVehicleNumber(in_lane_names[(i + 1) % 8]) < 1:
+                        target_mSpeed[(i + 1) % 8] = -1
+                else:
+                    target_mSpeed[(i + 1) % 8] = -1
+
         if major_phase:
             print("major: " , target_mSpeed)
-            if (durations[1] == 0 and traffic_mode[1] == 1) or source_density[1] < -5:
+            if (durations[1] == 0 and traffic_mode[1] == 1) or source_density[1] < -5 or (target_mSpeed[2] > 0 and target_mSpeed[2] < 3):
                 traffic_mode[1] = 0
                 traci.trafficlight.setLinkState("node4", 1, "r")
                 durations[1] = 42
@@ -89,7 +98,7 @@ def run():
             elif durations[1] > 0 and traffic_mode[1] == 1:
                 durations[1] -= 1
 
-            if (durations[5] == 0 and traffic_mode[5] == 1) or source_density[5] < -5:
+            if (durations[5] == 0 and traffic_mode[5] == 1) or source_density[5] < -5 or (target_mSpeed[6] > 0 and target_mSpeed[6] < 0):
                 traffic_mode[5] = 0
                 traci.trafficlight.setLinkState("node4", 5, "r")
                 durations[5] = 42
@@ -132,7 +141,7 @@ def run():
 
         else:
             print("minor: " , target_mSpeed)
-            if (durations[3] == 0 and traffic_mode[3] == 1) or source_density[3] < -5:
+            if (durations[3] == 0 and traffic_mode[3] == 1) or source_density[3] < -5 or (target_mSpeed[4] > 0 and target_mSpeed[4] < 3):
                 traffic_mode[3] = 0
                 traci.trafficlight.setLinkState("node4", 3, "r")
                 durations[3] = 42
@@ -144,7 +153,7 @@ def run():
             elif durations[3] > 0 and traffic_mode[3] == 1:
                 durations[3] -= 1
 
-            if (durations[7] == 0 and traffic_mode[7] == 1) or source_density[7] < -5:
+            if (durations[7] == 0 and traffic_mode[7] == 1) or source_density[7] < -5 or (target_mSpeed[0] > 0 and target_mSpeed[0] < 3):
                 traffic_mode[7] = 0
                 traci.trafficlight.setLinkState("node4", 7, "r")
                 durations[7] = 42
@@ -172,7 +181,7 @@ def run():
             elif durations[6] > 0 and traffic_mode[6] == 1:
                 durations[6] -= 1
 
-            if (traffic_mode[2] == -1 and traffic_mode[6] == -1) or source_density[2] < -5:
+            if traffic_mode[2] == -1 and traffic_mode[6] == -1:
                 major_phase = True
                 # set all minor phase stuff back to 0
                 traffic_mode[2] = 0
