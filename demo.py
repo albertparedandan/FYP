@@ -55,10 +55,10 @@ def run():
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         
-        vehs = traci.inductionloop.getLastStepVehicleIDs("myLoop12")
+        vehs = traci.inductionloop.getLastStepVehicleIDs(in_lane_det[7])
         for veh in vehs:
             print(traci.vehicle.getSpeed(veh))
-            traci.vehicle.setSpeed(veh, 0.5)
+            traci.vehicle.setSpeed(veh, 0.05)
 
         for i in range(8):
             if traci.lane.getLastStepVehicleNumber(out_lane_names[i]) == 0 and traffic_mode[i] == 1:
