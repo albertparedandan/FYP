@@ -34,6 +34,7 @@ def run():
     # list of detector_ids in incoming lanes
     in_lane_det = ["myLoop11", "myLoop10", "myLoop9", "myLoop8", "myLoop15", "myLoop14", "myLoop13", "myLoop12"]
     # array to keep track of durations left in each traffic light
+    time_limit = 42
     durations = [42, 42, 42, 42, 42, 42, 42, 42]
     # array to know if the traffic light is off or not
     traffic_mode = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -45,6 +46,13 @@ def run():
     # 0 indicates that the lane is supposed to have incoming vehicles, but congestion might be going on
     target_mSpeed = [-1, -1, -1, -1, -1, -1, -1, -1]
 
+    # array to keep track if the lanes are lagging behind
+    # only checks the left turn lanes since only they can be lagging behind
+    # other lanes are included in order to keep the indices consistent
+    lagging_lanes = [0, 0, 0, 0, 0, 0, 0, 0]
+
+    # this is the new lagging time limit that will be set to a traffic light if they are lagging behind
+    lag_time = (2 * time_limit) // 3
 
     major_phase = True
     traffic_mode[1] = 1
@@ -55,10 +63,11 @@ def run():
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         
-        vehs = traci.inductionloop.getLastStepVehicleIDs(in_lane_det[7])
-        for veh in vehs:
-            # print(traci.vehicle.getSpeed(veh))
-            traci.vehicle.setSpeed(veh, 0.05)
+        ## traffic
+        # vehs = traci.inductionloop.getLastStepVehicleIDs(in_lane_det[7])
+        # for veh in vehs:
+        #     # print(traci.vehicle.getSpeed(veh))
+        #     traci.vehicle.setSpeed(veh, 0.05)
 
         for i in range(8):
             if traci.lane.getLastStepVehicleNumber(out_lane_names[i]) == 0 and traffic_mode[i] == 1:
@@ -85,9 +94,11 @@ def run():
                     target_mSpeed[(i + 1) % 8] = -1
 
         if major_phase:
-            print("major: " , target_mSpeed)
+            print("major: " , lagging_lanes)
+            print("durations: " , durations)
             if (durations[1] == 0 and traffic_mode[1] == 1) or source_density[1] < -5 or (target_mSpeed[2] > 0 and target_mSpeed[2] < 3):
                 traffic_mode[1] = 0
+                lagging_lanes[1] = 0
                 traci.trafficlight.setLinkState("node4", 1, "r")
                 durations[1] = 42
                 #engage the next ring
@@ -98,8 +109,13 @@ def run():
             elif durations[1] > 0 and traffic_mode[1] == 1:
                 durations[1] -= 1
 
+            if lagging_lanes[1] == 0 and traffic_mode[1] == 1 and traffic_mode[0] == 1 and durations[1] > lag_time:
+                lagging_lanes[1] = 1
+                durations[1] = lag_time
+
             if (durations[5] == 0 and traffic_mode[5] == 1) or source_density[5] < -5 or (target_mSpeed[6] > 0 and target_mSpeed[6] < 0):
                 traffic_mode[5] = 0
+                lagging_lanes[5] = 0
                 traci.trafficlight.setLinkState("node4", 5, "r")
                 durations[5] = 42
                 # engage the next right
@@ -109,6 +125,10 @@ def run():
 
             elif durations[5] > 0 and traffic_mode[5] == 1:
                 durations[5] -= 1
+
+            if lagging_lanes[5] == 0 and traffic_mode[5] == 1 and traffic_mode[4] == 1 and durations[5] > lag_time:
+                lagging_lanes[5] = 1
+                durations[5] = lag_time
 
             if (durations[0] == 0 and traffic_mode[0] == 1) or source_density[0] < -5 or (target_mSpeed[5] > 0 and target_mSpeed[5] < 3):
                 traffic_mode[0] = -1
@@ -140,9 +160,11 @@ def run():
                 durations[7] = 42
 
         else:
-            print("minor: " , target_mSpeed)
+            print("minor: " , lagging_lanes)
+            print("durations: " , durations)
             if (durations[3] == 0 and traffic_mode[3] == 1) or source_density[3] < -5 or (target_mSpeed[4] > 0 and target_mSpeed[4] < 3):
                 traffic_mode[3] = 0
+                lagging_lanes[3] = 0
                 traci.trafficlight.setLinkState("node4", 3, "r")
                 durations[3] = 42
                 # move to next ring
@@ -152,6 +174,10 @@ def run():
 
             elif durations[3] > 0 and traffic_mode[3] == 1:
                 durations[3] -= 1
+
+            if lagging_lanes[3] == 0 and traffic_mode[3] == 1 and traffic_mode[2] == 1 and durations[3] > lag_time:
+                lagging_lanes[3] = 1
+                durations[3] = lag_time
 
             if (durations[7] == 0 and traffic_mode[7] == 1) or source_density[7] < -5 or (target_mSpeed[0] > 0 and target_mSpeed[0] < 3):
                 traffic_mode[7] = 0
@@ -164,6 +190,10 @@ def run():
 
             elif durations[7] > 0 and traffic_mode[7] == 1:
                 durations[7] -= 1
+
+            if lagging_lanes[7] == 0 and traffic_mode[7] == 1 and traffic_mode[6] == 1 and durations[7] > lag_time:
+                lagging_lanes[7] = 1
+                durations[7] = lag_time
 
             if (durations[2] == 0 and traffic_mode[2] == 1) or source_density[2] < -5 or (target_mSpeed[7] > 0 and target_mSpeed[7] < 3):
                 traffic_mode[2] = -1 
