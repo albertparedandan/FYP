@@ -8,6 +8,12 @@ SUMO simulation of FYP traffic algorithm. demo.py contains different modes of al
 4. All the results will be printed in the out.xml, tripinfo.xml
 5. script.py is the script used to get statistical data from the out.xml file
 6. randomTrips.py is used to generate random trips and route files
+7. all the results are stored in the folder named proper
+- con = with congestion boolean
+- lag = with lag limit
+- sou = traffic count of source
+- def = default traffic phase sequence
+- traf = with congestion simulated
 
 ## Getting Started
 These instructions will get you to clone and run the project on your local machine for development and testing purposes.
@@ -24,3 +30,4 @@ python demo.py #to run simulation
 
 # Authors
 * Albert Paredandan
+* Hans Krishandi
