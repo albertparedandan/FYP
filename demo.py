@@ -69,9 +69,9 @@ def run():
         
         ## traffic
         vehs = traci.inductionloop.getLastStepVehicleIDs(in_lane_det[5])
-        # for veh in vehs:
-        #     # print(traci.vehicle.getSpeed(veh))
-        #     traci.vehicle.setSpeed(veh, 0.3)
+        for veh in vehs:
+            # print(traci.vehicle.getSpeed(veh))
+            traci.vehicle.setSpeed(veh, 0.3)
 
         for i in range(8):
             if traci.lane.getLastStepVehicleNumber(out_lane_names[i]) == 0 and traffic_mode[i] == 1:
@@ -100,8 +100,8 @@ def run():
         if major_phase:
             print("major: " , lagging_lanes)
             print("durations: " , durations)
-            # if (durations[1] == 0 and traffic_mode[1] == 1) or source_density[1] < -5 or (target_mSpeed[2] > 0 and target_mSpeed[2] < 3):
-            if (durations[1] == 0 and traffic_mode[1] == 1) or source_density[1] < -5:
+            if (durations[1] == 0 and traffic_mode[1] == 1) or source_density[1] < -5 or (target_mSpeed[2] > 0 and target_mSpeed[2] < 3):
+            # if (durations[1] == 0 and traffic_mode[1] == 1) or source_density[1] < -5:
             # if (durations[1] == 0 and traffic_mode[1] == 1):
                 traffic_mode[1] = 0
                 lagging_lanes[1] = 0
@@ -117,12 +117,12 @@ def run():
             elif durations[1] > 0 and traffic_mode[1] == 1:
                 durations[1] -= 1
 
-            # if lagging_lanes[1] == 0 and traffic_mode[1] == 1 and traffic_mode[0] == 1 and durations[1] > lag_time:
-            #     lagging_lanes[1] = 1
-            #     durations[1] = lag_time
+            if lagging_lanes[1] == 0 and traffic_mode[1] == 1 and traffic_mode[0] == 1 and durations[1] > lag_time:
+                lagging_lanes[1] = 1
+                durations[1] = lag_time
 
-            # if (durations[5] == 0 and traffic_mode[5] == 1) or source_density[5] < -5 or (target_mSpeed[6] > 0 and target_mSpeed[6] < 0):
-            if (durations[5] == 0 and traffic_mode[5] == 1) or source_density[5] < -5:
+            if (durations[5] == 0 and traffic_mode[5] == 1) or source_density[5] < -5 or (target_mSpeed[6] > 0 and target_mSpeed[6] < 0):
+            # if (durations[5] == 0 and traffic_mode[5] == 1) or source_density[5] < -5:
             # if (durations[5] == 0 and traffic_mode[5] == 1):
                 traffic_mode[5] = 0
                 lagging_lanes[5] = 0
@@ -138,12 +138,12 @@ def run():
             elif durations[5] > 0 and traffic_mode[5] == 1:
                 durations[5] -= 1
 
-            # if lagging_lanes[5] == 0 and traffic_mode[5] == 1 and traffic_mode[4] == 1 and durations[5] > lag_time:
-            #     lagging_lanes[5] = 1
-            #     durations[5] = lag_time
+            if lagging_lanes[5] == 0 and traffic_mode[5] == 1 and traffic_mode[4] == 1 and durations[5] > lag_time:
+                lagging_lanes[5] = 1
+                durations[5] = lag_time
 
-            # if (durations[0] == 0 and traffic_mode[0] == 1) or source_density[0] < -5 or (target_mSpeed[5] > 0 and target_mSpeed[5] < 3):
-            if (durations[0] == 0 and traffic_mode[0] == 1) or source_density[0] < -5:
+            if (durations[0] == 0 and traffic_mode[0] == 1) or source_density[0] < -5 or (target_mSpeed[5] > 0 and target_mSpeed[5] < 3):
+            # if (durations[0] == 0 and traffic_mode[0] == 1) or source_density[0] < -5:
             # if (durations[0] == 0 and traffic_mode[0] == 1):
                 traffic_mode[0] = -1
                 traci.trafficlight.setLinkState("node4", 0, "r")
@@ -152,8 +152,8 @@ def run():
             elif durations[0] > 0 and traffic_mode[0] == 1:
                 durations[0] -= 1
 
-            # if (durations[4] == 0 and traffic_mode[4] == 1) or source_density[4] < -5 or (target_mSpeed[1] > 0 and target_mSpeed[1] < 3):
-            if (durations[4] == 0 and traffic_mode[4] == 1) or source_density[4] < -5:
+            if (durations[4] == 0 and traffic_mode[4] == 1) or source_density[4] < -5 or (target_mSpeed[1] > 0 and target_mSpeed[1] < 3):
+            # if (durations[4] == 0 and traffic_mode[4] == 1) or source_density[4] < -5:
             # if (durations[4] == 0 and traffic_mode[4] == 1):
                 traffic_mode[4] = -1
                 traci.trafficlight.setLinkState("node4", 4, "r")
@@ -182,8 +182,8 @@ def run():
         else:
             print("minor: " , lagging_lanes)
             print("durations: " , durations)
-            # if (durations[3] == 0 and traffic_mode[3] == 1) or source_density[3] < -5 or (target_mSpeed[4] > 0 and target_mSpeed[4] < 3):
-            if (durations[3] == 0 and traffic_mode[3] == 1) or source_density[3] < -5:
+            if (durations[3] == 0 and traffic_mode[3] == 1) or source_density[3] < -5 or (target_mSpeed[4] > 0 and target_mSpeed[4] < 3):
+            # if (durations[3] == 0 and traffic_mode[3] == 1) or source_density[3] < -5:
             # if (durations[3] == 0 and traffic_mode[3] == 1):
                 traffic_mode[3] = 0
                 lagging_lanes[3] = 0
@@ -199,12 +199,12 @@ def run():
             elif durations[3] > 0 and traffic_mode[3] == 1:
                 durations[3] -= 1
 
-            # if lagging_lanes[3] == 0 and traffic_mode[3] == 1 and traffic_mode[2] == 1 and durations[3] > lag_time:
-            #     lagging_lanes[3] = 1
-            #     durations[3] = lag_time
+            if lagging_lanes[3] == 0 and traffic_mode[3] == 1 and traffic_mode[2] == 1 and durations[3] > lag_time:
+                lagging_lanes[3] = 1
+                durations[3] = lag_time
 
-            # if (durations[7] == 0 and traffic_mode[7] == 1) or source_density[7] < -5 or (target_mSpeed[0] > 0 and target_mSpeed[0] < 3):
-            if (durations[7] == 0 and traffic_mode[7] == 1) or source_density[7] < -5:
+            if (durations[7] == 0 and traffic_mode[7] == 1) or source_density[7] < -5 or (target_mSpeed[0] > 0 and target_mSpeed[0] < 3):
+            # if (durations[7] == 0 and traffic_mode[7] == 1) or source_density[7] < -5:
             # if (durations[7] == 0 and traffic_mode[7] == 1):
                 traffic_mode[7] = 0
                 traci.trafficlight.setLinkState("node4", 7, "r")
@@ -219,12 +219,12 @@ def run():
             elif durations[7] > 0 and traffic_mode[7] == 1:
                 durations[7] -= 1
 
-            # if lagging_lanes[7] == 0 and traffic_mode[7] == 1 and traffic_mode[6] == 1 and durations[7] > lag_time:
-            #     lagging_lanes[7] = 1
-            #     durations[7] = lag_time
+            if lagging_lanes[7] == 0 and traffic_mode[7] == 1 and traffic_mode[6] == 1 and durations[7] > lag_time:
+                lagging_lanes[7] = 1
+                durations[7] = lag_time
 
-            # if (durations[2] == 0 and traffic_mode[2] == 1) or source_density[2] < -5 or (target_mSpeed[7] > 0 and target_mSpeed[7] < 3):
-            if (durations[2] == 0 and traffic_mode[2] == 1) or source_density[2] < -5:
+            if (durations[2] == 0 and traffic_mode[2] == 1) or source_density[2] < -5 or (target_mSpeed[7] > 0 and target_mSpeed[7] < 3):
+            # if (durations[2] == 0 and traffic_mode[2] == 1) or source_density[2] < -5:
             # if (durations[2] == 0 and traffic_mode[2] == 1):
                 traffic_mode[2] = -1 
                 traci.trafficlight.setLinkState("node4", 2, "r")
@@ -233,8 +233,8 @@ def run():
             elif durations[2] > 0 and traffic_mode[2] == 1:
                 durations[2] -= 1
 
-            # if (durations[6] == 0 and traffic_mode[6] == 1) or source_density[6] < -5 or (target_mSpeed[3] > 0 and target_mSpeed[3] < 3):
-            if (durations[6] == 0 and traffic_mode[6] == 1) or source_density[6] < -5:
+            if (durations[6] == 0 and traffic_mode[6] == 1) or source_density[6] < -5 or (target_mSpeed[3] > 0 and target_mSpeed[3] < 3):
+            # if (durations[6] == 0 and traffic_mode[6] == 1) or source_density[6] < -5:
             # if (durations[6] == 0 and traffic_mode[6] == 1):
                 traffic_mode[6] = -1
                 traci.trafficlight.setLinkState("node4", 6, "r")
