@@ -1,9 +1,15 @@
 # SUMO FYP Traffic Simulation
 SUMO simulation of FYP traffic algorithm. demo.py contains different modes of algorithm. Uncomment the "if" statements to enable the different algorithm modes.
 
+There are 4 modes of algorithm:
+- Algorithm 1 is the default algorithm
+- Algorithm 2 is Algorithm 1 + Traffic Count at origin lane
+- Algorithm 3 is Algorithm 2 + Congestion Boolean
+- Algorithm 4 is Algorithm 3 + Lag Limit
+
 ## Explanation
 1. Simulation files are located at demo.py
-2. my_route_*_rou.xml contains different simulations and 5 different randomised trips
+2. my_route.rou.xml contains the routes for the randomised trips
 3. Additional config is put inside demo.add.xml, such as induction loops useful to gain statistical insights and for congestion simulation
 4. All the results will be printed in the out.xml, tripinfo.xml
 5. script.py is the script used to get statistical data from the out.xml file
