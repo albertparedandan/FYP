@@ -12,7 +12,10 @@ SUMO simulation of FYP traffic algorithm. demo.py contains different modes of al
 ## Getting Started
 These instructions will get you to clone and run the project on your local machine for development and testing purposes.
 ```
-python demo.py # to run simulation
+netconvert --node-files NODE_FILE.nod.xml --edge-files EDGE_FILE.edg.xml -t TYPE_FILE.type.xml -o OUT_FILE.net.xml #create network files
+python3 randomTrips.py -n NET_FILE.net.xml -r ROU_FILE.rou.xml -e END_DURA -l #create random trips
+python demo.py #to run simulation
+
 ```
 
 ### Prerequisites
